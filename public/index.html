@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="create-user-with-email-and-password-btn">
+      createUserWithEmailAndPassword
+    </button>
+    <button id="sign-in-with-email-and-password-btn">
+      signInWithEmailAndPassword
+    </button>
+    <button id="fetch-sign-in-methods-for-email-btn">
+      fetchSignInMethodsForEmail
+    </button>
+    <button id="password-reset-email-btn">sendPasswordResetEmail</button>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+      const app = initializeApp({});
+
+      import {
+        getAuth,
+        connectAuthEmulator,
+        sendPasswordResetEmail,
+        signInWithEmailAndPassword,
+        fetchSignInMethodsForEmail,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const auth = getAuth(app);
+      connectAuthEmulator(auth, "http://127.0.0.1:9099");
+
+      const passwordResetEmailBtn = document.getElementById(
+        "password-reset-email-btn"
+      );
+      passwordResetEmailBtn.addEventListener("click", () => {
+        sendPasswordResetEmail(auth, "fake@fake.fake");
+      });
+
+      const signInWithEmailAndPasswordBtn = document.getElementById(
+        "sign-in-with-email-and-password-btn"
+      );
+      signInWithEmailAndPasswordBtn.addEventListener("click", () => {
+        signInWithEmailAndPassword(auth, "fake@fake.fake", "wrongpass");
+      });
+
+      const fetchSignInMethodsForEmailBtn = document.getElementById(
+        "fetch-sign-in-methods-for-email-btn"
+      );
+      fetchSignInMethodsForEmailBtn.addEventListener("click", () => {
+        fetchSignInMethodsForEmail(auth, "fake@fake.fake");
+      });
+
+      const createUserWithEmailAndPasswordBtn = document.getElementById(
+        "create-user-with-email-and-password-btn"
+      );
+      createUserWithEmailAndPasswordBtn.addEventListener("click", () => {
+        createUserWithEmailAndPassword(auth, "fake@fake.fake", "fakefake");
+      });
+    </script>
+  </body>
+</html>
